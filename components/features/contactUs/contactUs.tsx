@@ -1,0 +1,71 @@
+import HeadingType from "@/components/common/headingType";
+import { Copy, Mail, Map, Phone } from "lucide-react";
+
+interface ContactProps {
+  icon: React.ReactNode;
+  details: string;
+  type: string;
+}
+
+const data: ContactProps[] = [
+  {
+    icon: <Phone />,
+    details: "07082524755",
+    type: "Phone",
+  },
+  {
+    icon: <Copy />,
+    details: "77665543",
+    type: "RC Number",
+  },
+  {
+    icon: <Mail />,
+    details: "osasIfafa@gmail.com",
+    type: "Email",
+  },
+  {
+    icon: <Map />,
+    details: "Nigeria",
+    type: "Location",
+  },
+  // You can add more later (Email, Address, etc.)
+];
+
+export default function ContactUs() {
+  return (
+    <section id="contact" className="md:scroll-mt-24 py-16 mt-2 px-5">
+      {/* Header */}
+      <div className="flex flex-col gap-4 md:flex-row md:justify-between py-5">
+        <HeadingType h3="Get In Touch" h4="Contact Us" />
+
+        <p className="max-w-lg text-[#3A3A3C] ">
+          Ready to start shipping? Reach out to us for quotes, inquiries, or any
+          questions about our services.
+        </p>
+      </div>
+
+      {/* Contact Cards */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {data.map((item) => (
+          <div key={item.type}>
+            <div className="rounded-lg flex items-center space-x-3.5 p-6 shadow-md transition hover:shadow-lg">
+              <div className=" flex h-16 w-16 items-center justify-center rounded-[8px] bg-[#03045E] text-white">
+                {item.icon}
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-[#03045E]">
+                  {item.type}
+                </h3>
+
+                <span className="mt-1 block text-sm font-medium text-[#FF6B35]">
+                  {item.details}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
