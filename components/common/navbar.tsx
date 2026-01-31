@@ -1,24 +1,40 @@
 "use client";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect, use } from "react";
 import { LogOut, Menu, Plane, X } from "lucide-react";
 import { NextFont } from "next/dist/compiled/@next/font";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAppContext } from "@/context/useAppContext";
+import { AnimatePresence } from "framer-motion";
 
-export default function Navbar({
-  poppings,
-  setShowForm,
-  showForm,
-}: {
-  poppings: NextFont;
-  showForm?: boolean;
-  setShowForm?: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const drawerVariants = {
+  hidden: { x: "100%" },
+  visible: {
+    x: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 30,
+    },
+  },
+  exit: {
+    x: "100%",
+    transition: { duration: 0.2 },
+  },
+};
+
+export default function Navbar({ poppings }: { poppings: NextFont }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { setShowForm } = useAppContext();
   const pathName = usePathname();
 
-  console.log(pathName, "path");
   // sticky scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +43,10 @@ export default function Navbar({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+  }, [open]);
 
   const links = [
     { id: 1, href: "#", link: "Home" },
@@ -91,27 +111,63 @@ export default function Navbar({
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`md:hidden bg-[#03045E] overflow-hidden transition-all duration-300 ${
-          open ? "max-h-96 py-6" : "max-h-0"
-        }`}
-      >
-        <ul className="flex flex-col items-center gap-6 text-white text-lg font-medium">
-          {links.map((link) => (
-            <li key={link.id} className="relative group cursor-pointer">
-              <Link href={link.href}>{link.link}</Link>
-              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#FF6B35] transition-all duration-300 group-hover:w-full"></span>
-            </li>
-          ))}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              className="fixed inset-0 z-40 bg-black/40 md:hidden"
+              variants={backdropVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              onClick={() => setOpen(false)}
+            />
 
-          <button
-            onClick={() => setShowForm?.(true)}
-            className="bg-[#FF6B35] px-6 py-2 rounded-md font-semibold mt-2"
-          >
-            Get Quote
-          </button>
-        </ul>
-      </div>
+            {/* Drawer */}
+            <motion.div
+              className="fixed top-0 right-0 z-50 h-full w-[80%] max-w-sm bg-[#03045E] md:hidden"
+              variants={drawerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <div className="px-6 py-6 flex flex-col gap-8 text-white">
+                {/* Close button */}
+                <button className="self-end" onClick={() => setOpen(false)}>
+                  <X size={26} />
+                </button>
+
+                {/* Links */}
+                <ul className="flex flex-col gap-6 text-lg font-medium">
+                  {links.map((link) => (
+                    <li key={link.id}>
+                      <Link
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className="block w-full"
+                      >
+                        {link.link}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <button
+                  onClick={() => {
+                    setShowForm?.(true);
+                    setOpen(false);
+                  }}
+                  className="bg-[#FF6B35] px-6 py-3 rounded-md font-semibold"
+                >
+                  Get Quote
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

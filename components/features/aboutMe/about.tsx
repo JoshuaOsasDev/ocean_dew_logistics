@@ -5,7 +5,7 @@ export default function AboutMe() {
   return (
     <section
       id="about"
-      className="px-5 md:scroll-mt-24 gap-3 md:space-x-5 flex h-full flex-col md:flex-row md:items-center "
+      className="px-5 scroll-mt-24 gap-3 md:space-x-5 flex h-full flex-col md:flex-row md:items-center "
     >
       <div className="relative md:w-[542px] md:h-[485px] h-[273.41px] w-full">
         {" "}

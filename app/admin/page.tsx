@@ -12,7 +12,7 @@ import Campaign from "@/components/common/campaign";
 
 export default function page() {
   return (
-    <div className="bg-[#F8FAFD] min-h-screen px-14">
+    <div className="bg-[#F8FAFD] min-h-screen scrollbar-hide px-14">
       <Navbar poppings={poppins} />
       <div className="pt-25">
         <h1 className="text-[#666666] text-[12px]">Welcome Admin</h1>

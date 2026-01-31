@@ -56,13 +56,13 @@ export default function Footer({
             <Link href={"#"} className="">
               Home
             </Link>
-            <Link href={"#"} className="">
+            <Link href={"#services"} className="">
               Services
             </Link>
-            <Link href={"#"} className="">
+            <Link href={"#contact"} className="">
               Contacts
             </Link>
-            <Link href={"#"} className="">
+            <Link href={"#about"} className="">
               About Us
             </Link>
           </div>
