@@ -124,7 +124,7 @@ export default function DataTable({ data = [] }) {
                 <td className="py-4">
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="text-orange-500 transition hover:text-orange-600"
+                    className="text-orange-500 cursor-pointer hover:text-orange-600  transition hover:text-orange-600"
                     aria-label="Delete"
                   >
                     <Trash2 className="h-4 w-4" />
