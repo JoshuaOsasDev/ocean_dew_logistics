@@ -41,7 +41,7 @@ const campaigns = [
 
 export default function page() {
   return (
-    <div className="bg-[#F8FAFD] min-h-screen scrollbar-hide px-14">
+    <div className="bg-[#F8FAFD] min-h-screen scrollbar-hide px-5 md:px-14">
       <Navbar poppings={poppins} />
       <div className="pt-25">
         <h1 className="text-[#666666] text-[12px]">Welcome Admin</h1>

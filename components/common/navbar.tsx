@@ -49,7 +49,7 @@ export default function Navbar({ poppings }: { poppings: NextFont }) {
   }, [open]);
 
   const links = [
-    { id: 1, href: "#", link: "Home" },
+    { id: 1, href: "/", link: "Home" },
     { id: 2, href: "#services", link: "Services" },
     { id: 3, href: "#about", link: "About Us" },
     { id: 4, href: "#contact", link: "Contact" },
@@ -95,7 +95,7 @@ export default function Navbar({ poppings }: { poppings: NextFont }) {
           )}
 
           {pathName?.includes("/admin") && (
-            <button className="rounded-[8px] flex space-x-1.5 border px-5 py-2 text-sm cursor-pointer hover:bg-[#FF6B35] hover:border-[#FF6B35] border-[#FFFFFF] ">
+            <button className="rounded-[8px] hidden md:flex space-x-1.5 border px-5 py-2 text-sm cursor-pointer hover:bg-[#FF6B35] hover:border-[#FF6B35] border-[#FFFFFF] ">
               <span>
                 <LogOut />
               </span>{" "}
@@ -126,7 +126,7 @@ export default function Navbar({ poppings }: { poppings: NextFont }) {
 
             {/* Drawer */}
             <motion.div
-              className="fixed top-0 right-0 z-50 h-full w-[80%] max-w-sm bg-[#03045E] md:hidden"
+              className="fixed top-0 right-0 z-50 h-full w-[74%] max-w-sm bg-[#03045E] md:hidden"
               variants={drawerVariants}
               initial="hidden"
               animate="visible"
